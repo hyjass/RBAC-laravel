@@ -102,12 +102,8 @@
 @push('scriptforuser')
     <script>
         $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
             
+
             $('.editBtn').on('click', function() {
                 console.log("Edit button clicked");
                 const id = $(this).data('id');

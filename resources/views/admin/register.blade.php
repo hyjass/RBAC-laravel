@@ -219,11 +219,7 @@
     </section>
     <script>
         $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                }
-            });
+
 
 
             $('#adminregisterform').on('submit', function(e) {

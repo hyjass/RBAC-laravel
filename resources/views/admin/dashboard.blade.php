@@ -107,11 +107,7 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                }
-            });
+            
 
 
             $(document).on('click', '.editBtn', function() {
