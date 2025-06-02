@@ -177,8 +177,7 @@
                                 </div>
 
                                 <div data-mdb-input-init class="form-outline mb-4">
-                                    <select class="form-select texts rounded-0" name="country">
-                                        <option value="">Country</option>
+                                    <select class="form-select texts rounded-0" name="country" required>
                                         <option value="United States of America">United States of America</option>
                                         <option value="United Kingdom">United Kingdom</option>
                                         <option value="India">India</option>
@@ -220,6 +219,13 @@
     </section>
     <script>
         $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                }
+            });
+
+
             $('#adminregisterform').on('submit', function(e) {
                 e.preventDefault();
                 $.ajax({
@@ -228,13 +234,10 @@
                     data: $(this).serialize(),
                     success: function(response) {
                         if (response.success) {
-                            if (response.data) {
-                                console.log(response.data);
-                            }
                             window.location.href = '{{ route('admin.dashboard') }}';
                         } else {
                             alert(response.message);
-                            window.location.href = '{{ route('admin.login') }}';
+                            location.reload();
                         }
                     },
                     error: function(xhr) {
@@ -244,6 +247,7 @@
                             errorMessage += value[0] + '\n';
                         });
                         alert(errorMessage);
+                        location.reload();
                     }
                 });
             });

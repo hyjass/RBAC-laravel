@@ -203,7 +203,7 @@
                         if (response.success) {
                             if (response.redirect == 'user') {
                                 window.location.href = '{{ route('dashboard') }}';
-                            } else {
+                            } else if (response.redirect == 'admin') {
                                 window.location.href = '{{ route('admin.dashboard') }}';
                             }
                         } else {

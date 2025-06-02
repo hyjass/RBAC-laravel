@@ -145,15 +145,17 @@
                 e.preventDefault();
 
                 var formData = $(this).serialize();
-                // console.log(formData);
 
                 $.ajax({
                     url: '{{ route('store') }}',
                     type: 'post',
                     data: formData,
                     success: function(response) {
-                        location.reload();     
-
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert("Error");
+                        }
                     },
                     error: function(xhr) {
                         alert("Error while updating:" + xhr.responseText);

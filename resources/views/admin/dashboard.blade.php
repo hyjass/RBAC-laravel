@@ -107,6 +107,12 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                }
+            });
+
 
             $(document).on('click', '.editBtn', function() {
                 console.log("Edit button clicked");
@@ -154,11 +160,15 @@
                     type: 'POST',
                     data: formData,
                     success: function(response) {
-                        console.log('Data saved successfully');
-                        location.reload();
+                        if (response.success) {
+                            alert("Data saved successfully!");
+                            location.reload();
+                        } else {
+                            alert("Error");
+                        }
                     },
                     error: function(xhr, status, error) {
-                        console.error("Error while saving data:", error);
+                        alert("Error while saving data:" + xhr.responseText);
                     }
                 });
             });

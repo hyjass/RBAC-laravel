@@ -224,7 +224,6 @@
                 e.preventDefault();
 
                 var formData = $(this).serialize();
-                // console.log(formData);
 
                 $.ajax({
                     url: '{{ route('store') }}',
@@ -240,7 +239,7 @@
                     error: function(xhr) {
                         alert('Registration failed: ' + (xhr.responseJSON?.message ||
                             'Unknown error'));
-                        window.location.href = "{{ route('login') }}";
+                        location.reload();
                     }
                 });
             });
