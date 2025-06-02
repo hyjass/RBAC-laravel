@@ -87,9 +87,6 @@
                             data-country="{{ $data->country }}" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Edit
                         </button>
-                        <button class="btn btn-sm btn-warning deleteBtn" data-id="{{ $data->id }}">
-                            Delete
-                        </button>
                     </td>
             </tr>
         @else
@@ -105,6 +102,12 @@
 @push('scriptforuser')
     <script>
         $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
             $('.editBtn').on('click', function() {
                 console.log("Edit button clicked");
                 const id = $(this).data('id');
@@ -120,26 +123,6 @@
                 $('select').val(country);
             });
 
-            $('.deleteBtn').on('click', function() {
-                if (confirm("Are you sure you want to delete this user?")) {
-                    var id = $(this).data('id');
-                    $.ajax({
-                        url: '{{ route('delete') }}',
-                        type: 'POST',
-                        data: {
-                            id: id,
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function() {
-                            console.log('Deleted successfully');
-                            location.reload();
-                        },
-                        error: function() {
-                            console.log("Error while deleting");
-                        }
-                    });
-                }
-            });
 
             $('#edit-form').on('submit', function(e) {
                 e.preventDefault();
